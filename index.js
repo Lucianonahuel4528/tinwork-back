@@ -1,5 +1,6 @@
 var express = require("express");
 var dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 
 var admin = require("firebase-admin");
 dotenv.config();
@@ -24,9 +25,11 @@ admin.initializeApp({
 });
 
 const app = express();
-const port = 3001;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const port = 3000;
 
-app.get("/", async (req, res) => {
+app.get("/topic", async (req, res) => {
   const payload = {
     notification: {
       title: "New news",
@@ -43,13 +46,17 @@ app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/:token", async (req, res) => {
-  const token = req.params.token;
+app.post("/", async (req, res) => {
+  console.log(req.body);
+
+  const token = req.body.token;
+  const title = req.body.title;
+  const body = req.body.body;
 
   const payload = {
     notification: {
-      title: "Esta es una notificacion de prueba",
-      body: "Notificacion de prueba enviada",
+      title: title,
+      body: body,
     },
   };
 
