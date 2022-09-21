@@ -49,8 +49,6 @@ app.get("/topic", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  console.log(req.body);
-
   const token = req.body.token;
   const title = req.body.title;
   const body = req.body.body;
@@ -68,7 +66,7 @@ app.post("/", async (req, res) => {
     .then((response) => console.log(response))
     .catch((err) => console.log("err", err));
 
-  res.send("Hello World!");
+  res.send("Notificacion enviada");
 });
 
 app.listen(port, () => {
