@@ -1,5 +1,6 @@
 var express = require("express");
 var dotenv = require("dotenv");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 
 var admin = require("firebase-admin");
@@ -25,6 +26,7 @@ admin.initializeApp({
 });
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const port = 3000;
